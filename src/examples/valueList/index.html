@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <link rel="icon" href="data:,">
-        <title>Bendy</title>
+        <title>value_list.gh</title>
         <style>
             body {
                 margin: 0;
@@ -13,15 +13,8 @@
             input[type=range] { width: 100%; }
             #container { position: relative; }
             #container canvas, #overlay { position: absolute; }
-/*///////////////////////////////////////////////////////////////////////////*/
-            #overlay {
-              z-index: 1;
-              width: 250px;
-              height: 100vh;
-              background-color: rgba(0,0,0,0.1);
-            }
-            #overlay div { padding: 5px 10px; }
-/*///////////////////////////////////////////////////////////////////////////*/
+            #overlay { z-index: 1; width: 100%; }
+            #overlay div { padding: 5px; }
             #loader {
                 border: 5px solid #f3f3f3; /* Light grey */
                 border-top: 5px solid #3d3d3d; /* Grey */
@@ -45,14 +38,19 @@
         <div id="container">
             <div id="overlay">
 <!-- /////////////////////////////////////////////////////////////////////////// -->
-                <div><h2>Bendy</h2></div>
                 <div>
-                  <label for="RH_IN:iterations">RH_IN:iterations</label>
-                  <input type="range" id="RH_IN:iterations" min="0" max="1000" value="1000" step="1">
+                  <label for="RH_IN:number">number</label>
+                  <!-- <input type="number" id="RH_IN:number" value=""> -->
+                  <select name="numberDropdown" id="RH_IN:number">
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                    <option value="4">Four</option>
+                  </select>
                 </div>
-                <div><button id="downloadButton" disabled>Download</button></div>
-                <!-- <div><a href="_Bending_gridshell.gh" download="_Bending_gridshell.gh.html">Save source code</a></div> -->
 <!-- /////////////////////////////////////////////////////////////////////////// -->
+                <div><button id="downloadButton" disabled>Download</button></div>
+                <!-- <div><a href="value_list.gh" download="value_list.gh.html">Save source code</a></div> -->
             </div>
         </div>
 
@@ -68,7 +66,7 @@ loader.setLibraryPath( 'https://cdn.jsdelivr.net/npm/rhino3dm@0.15.0-beta/' )
 
 // initialise 'data' object that will be used by compute()
 const data = {
-  definition: 'Bending_gridshell.gh',
+  definition: 'value_list.gh',
   inputs: getInputs()
 }
 
@@ -79,7 +77,6 @@ rhino3dm().then(async m => {
     rhino = m
 
     init()
-    loadContext()
     compute()
 })
 
@@ -115,6 +112,12 @@ function getInputs() {
         break
     }
   }
+///////////////////////////////////////////////////////////////////////////
+  for (const input of document.getElementsByTagName('select')) {
+    inputs[input.id] = input.value
+    input.onchange = onSliderChange
+  }
+///////////////////////////////////////////////////////////////////////////
   return inputs
 }
 
@@ -159,15 +162,6 @@ function init() {
     window.addEventListener( 'resize', onWindowResize, false )
 
     animate()
-}
-
-function loadContext() {
-  loader.load('context.3dm', function (object) {
-    object.traverse(child => {
-      child.name = 'context'
-    })
-    scene.add(object)
-  })
 }
 
 /**
@@ -232,26 +226,24 @@ function collectResults(responseJson) {
       return
     }
 
-    // hack (https://github.com/mcneel/rhino3dm/issues/353)
-    const sphereAttrs = new rhino.ObjectAttributes()
-    sphereAttrs.mode = rhino.ObjectMode.Hidden
-    doc.objects().addSphere(new rhino.Sphere([0,0,0], 0.001), sphereAttrs)
-
     // load rhino doc into three.js scene
     const buffer = new Uint8Array(doc.toByteArray()).buffer
     loader.parse( buffer, function ( object ) 
     {
-        // debug 
-        /*
+///////////////////////////////////////////////////////////////////////////
+        // show mesh edges
         object.traverse(child => {
-          if (child.material !== undefined)
-            child.material = new THREE.MeshNormalMaterial()
+          if (child.isMesh) {
+            const edges = new THREE.EdgesGeometry( child.geometry );
+            const line = new THREE.LineSegments( edges, new THREE.LineBasicMaterial( { color: 0x000000 } ) )
+            child.add( line )
+          }
         }, false)
-        */
+///////////////////////////////////////////////////////////////////////////
 
         // clear objects from scene. do this here to avoid blink
         scene.traverse(child => {
-            if (!child.isLight && child.name !== 'context') {
+            if (!child.isLight) {
                 scene.remove(child)
             }
         })
@@ -305,6 +297,11 @@ function onSliderChange () {
       break
     }
   }
+///////////////////////////////////////////////////////////////////////////
+  for (const input of document.getElementsByTagName('select')) {
+    inputs[input.id] = input.value
+  }
+///////////////////////////////////////////////////////////////////////////
   
   data.inputs = inputs
 
