@@ -5,7 +5,7 @@
         <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
         <link rel="manifest" href="../favicon/site.webmanifest">
-        <title>Panels</title>
+        <title>Group 1 Space syntax script</title>
         <style>
             body { margin: 0; }
             canvas { width: 100%; height: 100%; }
@@ -31,15 +31,44 @@
                 100% { transform: rotate(360deg); }
             }
         </style>
+
     </head>
     <body>
         <div id="loader"></div> 
         <div id="container">
             <div id="overlay">
                 <div>
+                    <label for="Select_display_mode">Display mode</label>
+                    <!-- <input type="number" id="RH_IN:number" value=""> -->
+                    <select name="numberDropdown" id="Select_display_mode">
+                      <option value="0">Space syntax spheres</option>
+                      <option value="1">Function creation divided</option>
+                      <option value="2">Function creation merged</option>
+                      <option value="3">Floorplans</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="RH_IN:Show_boundary">Show Boundary</label>
+                    <input type="checkbox" id="RH_IN:Show_boundary" >
+                </div>
+                <div id="cont1">
+                    <label for="Select_floor">Select floor</label>
+                    <!-- <input type="number" id="RH_IN:number" value=""> -->
+                    <select name="numberDropdown" id="Select_floor">
+                      <option value="0">Floor 0</option>
+                      <option value="1">Floor 1</option>
+                      <option value="2">Floor 2</option>
+                      <option value="3">Floor 3</option>
+                      <option value="4">All floors</option>
+                    </select>
+                </div>
+                
+                <div><button id="downloadButton" disabled>Download</button></div>
+                <div><a href="server_space_syntax.gh" download="server_space_syntax.gh.html">Save source code</a></div>
+                <!-- <div>
                     <label for="Select display mode">Select display mode</label>
                     <input type="number" id="Select display mode" value="1">
-                </div>
+                </div> -->
                 <!-- <div>
                     <input type="range" id="clusters" name="clusters" min="2" max="10" value="5" step="1">
                     <label for="clusters">Clusters</label>
