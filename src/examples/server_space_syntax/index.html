@@ -6,90 +6,71 @@
         <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
         <link rel="manifest" href="../favicon/site.webmanifest">
         <title>Group 1 Space syntax script</title>
-        <style>
-            body { margin: 0; }
-            canvas { width: 100%; height: 100%; }
-            input {width: 30%;}
-            #container {position: relative;}
-            #container canvas, #overlay { position: absolute;}
-            #overlay {z-index: 1; width: 40%}
-            #loader {
-                border: 5px solid #f3f3f3; /* Light grey */
-                border-top: 5px solid #3d3d3d; /* Grey */
-                border-radius: 50%;
-                width: 40px;
-                height: 40px;
-                animation: spin 1s linear infinite;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                z-index: 2;
-            }
+        <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css">
+        <link rel="stylesheet" href="styles.css">
 
-            @keyframes spin {
-                0% { transform: rotate(0deg); }
-                100% { transform: rotate(360deg); }
-            }
-        </style>
 
     </head>
     <body>
         <div id="loader"></div> 
-        <div id="container">
-            <div id="overlay">
-                <div>
-                    <label for="Select_display_mode">Display mode</label>
-                    <!-- <input type="number" id="RH_IN:number" value=""> -->
-                    <select name="numberDropdown" id="Select_display_mode">
-                      <option value="0">Space syntax spheres</option>
-                      <option value="1">Function creation divided</option>
-                      <option value="2">Function creation merged</option>
-                      <option value="3">Floorplans</option>
-                    </select>
+        <div id="layout" class="pure-g">
+                <div class="sidebar pure-u-1-5">
+                    <div class="header">
+                        <div>
+                            <h1 class="brand-title">Space Syntax Algorithm Showcase</h1>
+                            <h2 class="brand-tagline">Developed for the needs of BIMSC studio project</h2>
+                        </div>
+                        <div>
+                            <p></p>
+                            <label for="Area_scale_factor">Room area scale factor</label><br>
+                            <input type="range" id="Area_scale_factor" name="Area_scale_factor" min="75" max="175" value="100" step="5">                            
+                        </div>
+                        <div>                            
+                            <label for="Select_color_palette">Select color palette</label><br>
+                            <select name="numberDropdown" id="Select_color_palette">
+                            <option value="0">Red to blue</option>
+                            <option value="1">Rainbow</option>
+                            <option value="2">Studio palette</option>
+                            </select>
+                            <p></p>
+                        </div>
+                        <div>
+                            <label for="Select_display_mode">Display mode</label><br>
+                            <select name="numberDropdown" id="Select_display_mode">
+                            <option value="0">Space syntax spheres</option>
+                            <option value="1">Function creation divided</option>
+                            <option value="2">Function creation merged</option>
+                            <option value="3">Floorplans</option>
+                            </select>
+                            <p></p>
+                        </div>
+                        <div>
+                            <label for="RH_IN:Show_boundary">Show Boundary</label>
+                            <input type="checkbox" id="RH_IN:Show_boundary" >
+                            <p></p>
+                        </div>
+                        <div id="cont1">
+                            <label for="Select_floor">Select floor</label>
+                            <!-- <input type="number" id="RH_IN:number" value=""> -->
+                            <select name="numberDropdown" id="Select_floor">
+                            <option value="0">Floor 0</option>
+                            <option value="1">Floor 1</option>
+                            <option value="2">Floor 2</option>
+                            <option value="3">Floor 3</option>
+                            <option value="4">All floors</option>
+                            </select>
+                            <p></p>
+                            <label for="RH_IN:Divided_merged">Merge clusters</label>
+                            <input type="checkbox" id="RH_IN:Divided_merged" >
+                            <p></p>
+                            <label for="RH_IN:Show_corridors">Show corridors</label>
+                            <input type="checkbox" id="RH_IN:Show_corridors" >
+                            <p></p>
+                        </div>                            
+                            <div><button id="downloadButton" disabled>Download rhino file</button></div>                        
+                    </div>
                 </div>
-                <div>
-                    <label for="RH_IN:Show_boundary">Show Boundary</label>
-                    <input type="checkbox" id="RH_IN:Show_boundary" >
-                </div>
-                <div id="cont1">
-                    <label for="Select_floor">Select floor</label>
-                    <!-- <input type="number" id="RH_IN:number" value=""> -->
-                    <select name="numberDropdown" id="Select_floor">
-                      <option value="0">Floor 0</option>
-                      <option value="1">Floor 1</option>
-                      <option value="2">Floor 2</option>
-                      <option value="3">Floor 3</option>
-                      <option value="4">All floors</option>
-                    </select>
-                </div>
-                
-                <div><button id="downloadButton" disabled>Download</button></div>
-                <div><a href="server_space_syntax.gh" download="server_space_syntax.gh.html">Save source code</a></div>
-                <!-- <div>
-                    <label for="Select display mode">Select display mode</label>
-                    <input type="number" id="Select display mode" value="1">
-                </div> -->
-                <!-- <div>
-                    <input type="range" id="clusters" name="clusters" min="2" max="10" value="5" step="1">
-                    <label for="clusters">Clusters</label>
-                </div>
-                <div>
-                    <input type="range" id="dimension" name="dimension" min="5" max="100" value="20" step="1">
-                    <label for="dimension">Dimension</label>
-                </div>
-                <div>
-                    <input type="range" id="resolution" name="resolution" min="5" max="30" value="20" step="1">
-                    <label for="resolution">Resolution</label>
-                </div>
-                <div>
-                    <input type="range" id="x" name="x" min="0.0" max="1.0" value="0.5" step="0.1">
-                    <label for="x">X Position</label>
-                </div>
-                <div>
-                    <input type="range" id="y" name="y" min="0.0" max="1.0" value="0.5" step="0.1">
-                    <label for="y">Y Position</label>
-                </div> -->
-            </div>
         </div>
         <script type="module" src="script.js"></script>
     </body>

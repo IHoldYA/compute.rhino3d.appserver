@@ -347,4 +347,3 @@ function hide_show_combobox_event(e){
 var selectDisplay = document.getElementById("Select_display_mode");
 selectDisplay.addEventListener("change" , hide_show_combobox_event);
 hide_show_combobox(selectDisplay.value)
-
