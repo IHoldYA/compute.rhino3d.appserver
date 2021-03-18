@@ -179,6 +179,18 @@ function collectResults(responseJson) {
         }, false)
         */
 
+        object.traverse(child => {
+          if (child.isLine) {
+            if (child.userData.attributes.geometry.userStringCount > 0) {
+              //console.log(child.userData.attributes.geometry.userStrings[0][1])
+              const col = child.userData.attributes.geometry.userStrings[0][1]
+              const threeColor = new THREE.Color( "rgb(" + col + ")")
+              const mat = new THREE.LineBasicMaterial({color:threeColor})
+              child.material = mat
+            }
+          }
+        })
+
         // clear objects from scene. do this here to avoid blink
         scene.traverse(child => {
             if (!child.isLight) {
@@ -347,3 +359,22 @@ function hide_show_combobox_event(e){
 var selectDisplay = document.getElementById("Select_display_mode");
 selectDisplay.addEventListener("change" , hide_show_combobox_event);
 hide_show_combobox(selectDisplay.value)
+
+/**
+ * Hide show divided function checkbox
+ */
+function hide_show_checkbox() {
+  // console.log(f)
+  // const g = f.target.value
+  // console.log(Number(g))
+  if(document.getElementById('RH_IN:Show_annotations').checked) {
+      document.getElementById("cont2").style.display="initial";
+  }
+  else {
+      document.getElementById("cont2").style.display="none";
+  }                 
+}
+
+// var se = document.getElementById('RH_IN:Show_annotations');
+document.getElementById('RH_IN:Show_annotations').addEventListener('change', hide_show_checkbox);
+

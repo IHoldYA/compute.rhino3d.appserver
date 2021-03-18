@@ -24,9 +24,19 @@
                         <div>
                             <p></p>
                             <label for="Area_scale_factor">Room area scale factor</label><br>
-                            <input type="range" id="Area_scale_factor" name="Area_scale_factor" min="75" max="175" value="100" step="5">                            
+                            <input type="range" id="Area_scale_factor" name="Area_scale_factor" min="75" max="175" value="100" step="5">
+                            <p></p>                            
+                        </div>
+                        <div>
+                            <label for="RH_IN:Show_annotations">Show Annotations</label>
+                            <input type="checkbox" id="RH_IN:Show_annotations" >                            
+                        </div>
+                        <div id="cont2" style="display: none">
+                            <label for="RH_IN:Show_divided">(divisions)</label>
+                            <input type="checkbox" id="RH_IN:Show_divided" >
                         </div>
                         <div>                            
+                            <p></p>
                             <label for="Select_color_palette">Select color palette</label><br>
                             <select name="numberDropdown" id="Select_color_palette">
                             <option value="0">Red to blue</option>
@@ -50,7 +60,7 @@
                             <input type="checkbox" id="RH_IN:Show_boundary" >
                             <p></p>
                         </div>
-                        <div id="cont1">
+                        <div id="cont1" style="display: none">
                             <label for="Select_floor">Select floor</label>
                             <!-- <input type="number" id="RH_IN:number" value=""> -->
                             <select name="numberDropdown" id="Select_floor">
