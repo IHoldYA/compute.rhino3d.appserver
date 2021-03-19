@@ -1,0 +1,88 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
+        <link rel="manifest" href="../favicon/site.webmanifest">
+        <title>Group 1 Space syntax script</title>
+        <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/grids-responsive-min.css">
+        <link rel="stylesheet" href="styles.css">
+
+
+    </head>
+    <body>
+        <div id="loader"></div> 
+        <div id="layout" class="pure-g">
+                <div class="sidebar pure-u-1-5">
+                    <div class="header">
+                        <div>
+                            <h1 class="brand-title">Space Syntax Algorithm Showcase</h1>
+                            <h2 class="brand-tagline">Developed for the needs of BIMSC studio project</h2>
+                        </div>
+                        <div>
+                            <p></p>
+                            <label for="Area_scale_factor">Room area scale factor</label><br>
+                            <input type="range" id="Area_scale_factor" name="Area_scale_factor" min="75" max="175" value="100" step="5">
+                            <p></p>                            
+                        </div>
+                        <div>
+                            <label for="RH_IN:Show_annotations">Show Annotations</label>
+                            <input type="checkbox" id="RH_IN:Show_annotations" >                            
+                        </div>
+                        <div id="cont2" style="display: none">
+                            <label for="RH_IN:Show_divided">(divisions)</label>
+                            <input type="checkbox" id="RH_IN:Show_divided" >
+                        </div>
+                        <div>                            
+                            <p></p>
+                            <label for="Select_color_palette">Select color palette</label><br>
+                            <select name="numberDropdown" id="Select_color_palette">
+                            <option value="0">Red to blue</option>
+                            <option value="1">Rainbow</option>
+                            <option value="2">Studio palette</option>
+                            </select>
+                            <p></p>
+                        </div>
+                        <div>
+                            <label for="Select_display_mode">Display mode</label><br>
+                            <select name="numberDropdown" id="Select_display_mode">
+                            <option value="0">Space syntax spheres</option>
+                            <option value="1">Function creation divided</option>
+                            <option value="2">Function creation merged</option>
+                            <option value="3">Floorplans</option>
+                            </select>
+                            <p></p>
+                        </div>
+                        <div>
+                            <label for="RH_IN:Show_boundary">Show Boundary</label>
+                            <input type="checkbox" id="RH_IN:Show_boundary" ><br>
+                            <i>Move the gumball to define the center of vertical communication.</i>
+                            <p></p>
+                        </div>
+                        <div id="cont1" style="display: none">
+                            <label for="Select_floor">Select floor</label>
+                            <!-- <input type="number" id="RH_IN:number" value=""> -->
+                            <select name="numberDropdown" id="Select_floor">
+                            <option value="0">Floor 0</option>
+                            <option value="1">Floor 1</option>
+                            <option value="2">Floor 2</option>
+                            <option value="3">Floor 3</option>
+                            <option value="4">All floors</option>
+                            </select>
+                            <p></p>
+                            <label for="RH_IN:Divided_merged">Merge clusters</label>
+                            <input type="checkbox" id="RH_IN:Divided_merged" >
+                            <p></p>
+                            <label for="RH_IN:Show_corridors">Show corridors</label>
+                            <input type="checkbox" id="RH_IN:Show_corridors" >
+                            <p></p>
+                        </div>                            
+                            <div><button id="downloadButton" disabled>Download rhino file</button></div>                        
+                    </div>
+                </div>
+        </div>
+        <script type="module" src="script.js"></script>
+    </body>
+</html>
