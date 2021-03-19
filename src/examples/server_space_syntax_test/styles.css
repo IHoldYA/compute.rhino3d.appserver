@@ -29,15 +29,14 @@ h3 {
 }
 
 .header {
-    text-align: center;
-    top: auto;
+    text-align: right;
     margin: 3em auto;
 }
 
 .header-2 {
-    text-align: center;
-    top: right;
-    margin: auto;
+    text-align: right;
+    top: auto;
+    margin:  10%;
 }
 
 .sidebar {
